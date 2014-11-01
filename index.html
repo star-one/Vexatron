@@ -6,73 +6,41 @@
     <title>The Vexatron</title>
     <!-- CSS
          ================================================== -->
-    <link rel="stylesheet" href="./css/style.css" />
-    <link rel="stylesheet" href="./css/skeleton.css" />
-    <link rel="stylesheet" href="./css/layout.css" />
-    <link rel="stylesheet" href="./css/wordpress.css" />
-    <link rel="stylesheet" href="./css/metro.css" />
-	<link rel="prefetch prerender" href="./vexations.mp3" >
-	<link rel="prefetch prerender" href="./vexations-001.mp3" >
-	<link rel="prefetch prerender" href="./vexations-002.mp3" >
-	<link rel="prefetch prerender" href="./vexations-003.mp3" >
+    <link rel="stylesheet" href="css/style.css" />
+	<link rel="prefetch prerender" href="vexations.mp3" >
+	<link rel="prefetch prerender" href="vexations-001.mp3" >
+	<link rel="prefetch prerender" href="vexations-002.mp3" >
+	<link rel="prefetch prerender" href="vexations-003.mp3" >
+	<link rel="prefetch prerender" href="vexations-004.mp3" >
+	<link rel="prefetch prerender" href="vexations-005.mp3" >
+	<link rel="prefetch prerender" href="vexations-006.mp3" >
+	<link rel="prefetch prerender" href="vexations-007.mp3" >
+	<link rel="prefetch prerender" href="vexations-008.mp3" >
     <!-- Mobile Specific Metas
   ================================================== -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <!--[if lt IE 9]>
-                <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-        <![endif]-->
 	 <script src="./js/general.js"></script>
 	 <script src="./js/about.js"></script>
   </head>
-  <body>
-    <div>
-      <div id="page" class="hfeed">
-        <div id="top-bar">
-          <div class="container">
-            <div class="sixteen columns">
-              <header id="branding" role="banner" style="height: 75px;">
-                  <hgroup>
-                    <h1 class="screen-reader-text">The Vexatron</h1>
-                  </hgroup>
-               </header>
-            </div>
-          </div>
-            <div class="container">
-              <div class="sixteen columns">
-                <nav>
-                  <div id="access" role="navigation">
-                    <h2 class="assistive-text section-heading">Main menu</h2>
-                    <div class="skip-link screen-reader-text">Skip to content</div><?php include './menu.php' ?>
-                  </div>
-                  <!-- #access -->
-                </nav>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- #branding -->
-    </div>
-    <div class="container">
-      <div id="main">
+  <body style="margin: 2em;">
 <button onclick="playAud()" type="button">Play</button>
 <button onclick="rptAud()" type="button">Force repeat</button> 
 <button onclick="stopAud()" type="button">Stop</button> 
 <br> 
 <audio id="audio1">
-  <source src="./vexations.mp3" type="audio/mp3">
+  <source src="vexations.mp3" type="audio/mp3">
   Your browser does not support HTML5 audio.
 </audio>
 <audio id="audio2">
-  <source src="./vexations-001.mp3" type="audio/mp3">
+  <source src="vexations-008.mp3" type="audio/mp3">
   Your browser does not support HTML5 audio.
 </audio>
 <audio id="audio3">
-  <source src="./vexations-002.mp3" type="audio/mp3">
+  <source src="vexations-005.mp3" type="audio/mp3">
   Your browser does not support HTML5 audio.
 </audio>
 <audio id="audio4">
-  <source src="./vexations-004.mp3" type="audio/mp3">
+  <source src="vexations-002.mp3" type="audio/mp3">
   Your browser does not support HTML5 audio.
 </audio>
 <span style="background: #fff;">Total number of repeats: <span id="theTotalRepeats">5</span> / total time: <span id="theTotalTime">0:8:45</span> minutes.</span>
@@ -99,9 +67,7 @@ function playAud()
   startMilliseconds = startTime.getTime();
 
   document.getElementById("startTime").innerHTML=showStarttime;
-
   document.getElementById("elapsedTime").innerHTML=formatTime(elapsedTime);
-
   document.getElementById("repeats").innerHTML=numRepeats;
  } 
 
@@ -168,34 +134,33 @@ if (myAudio.ended)
 		{
 		myAudio.currentTime = 0;
 		myAudio.play();
-		
-		myAudioSrcNum = Math.floor((Math.random()*9)+1);
-		
+
+		myAudioSrcNum = Math.floor((Math.random()*9)+1);		
 		switch (myAudioSrcNum)
 		{
 		case 1:
-			myAudio2.src="./vexations-001.mp3";
+			myAudio2.src="vexations-001.mp3";
 		break;
 		case 2:
-			myAudio2.src="./vexations-002.mp3";
+			myAudio2.src="vexations-002.mp3";
 		break;
 		case 3:
-			myAudio2.src="./vexations-003.mp3";
+			myAudio2.src="vexations-003.mp3";
 		break;
 		case 4:
-			myAudio2.src="./vexations-004.mp3";
+			myAudio2.src="vexations-004.mp3";
 		break;
 		case 5:
-			myAudio2.src="./vexations-005.mp3";
+			myAudio2.src="vexations-005.mp3";
 		break;
 		case 6:
-			myAudio2.src="./vexations-006.mp3";
+			myAudio2.src="vexations-006.mp3";
 		break;
 		case 7:
-			myAudio2.src="./vexations-007.mp3";
+			myAudio2.src="vexations-007.mp3";
 		break;
 		case 8:
-			myAudio2.src="./vexations-008.mp3";
+			myAudio2.src="vexations-008.mp3";
 		break;
 		case 9:
 			myAudio2.src="";
@@ -203,32 +168,31 @@ if (myAudio.ended)
 		}
 		
 		myAudioSrcNum = Math.floor((Math.random()*9)+1);
-		
 		switch (myAudioSrcNum)
 		{
 		case 1:
-			myAudio3.src="./vexations-001.mp3";
+			myAudio3.src="vexations-001.mp3";
 		break;
 		case 2:
-			myAudio3.src="./vexations-002.mp3";
+			myAudio3.src="vexations-002.mp3";
 		break;
 		case 3:
-			myAudio3.src="./vexations-003.mp3";
+			myAudio3.src="vexations-003.mp3";
 		break;
 		case 4:
-			myAudio3.src="./vexations-004.mp3";
+			myAudio3.src="vexations-004.mp3";
 		break;
 		case 5:
-			myAudio3.src="./vexations-005.mp3";
+			myAudio3.src="vexations-005.mp3";
 		break;
 		case 6:
-			myAudio3.src="./vexations-006.mp3";
+			myAudio3.src="vexations-006.mp3";
 		break;
 		case 7:
-			myAudio3.src="./vexations-007.mp3";
+			myAudio3.src="vexations-007.mp3";
 		break;
 		case 8:
-			myAudio3.src="./vexations-008.mp3";
+			myAudio3.src="vexations-008.mp3";
 		break;
 		case 9:
 			myAudio2.src="";
@@ -236,40 +200,39 @@ if (myAudio.ended)
 		}
 		
 		myAudioSrcNum = Math.floor((Math.random()*9)+1);
-		
 		switch (myAudioSrcNum)
 		{
 		case 1:
-			myAudio4.src="./vexations-001.mp3";
+			myAudio4.src="vexations-001.mp3";
 		break;
 		case 2:
-			myAudio4.src="./vexations-002.mp3";
+			myAudio4.src="vexations-002.mp3";
 		break;
 		case 3:
-			myAudio4.src="./vexations-003.mp3";
+			myAudio4.src="vexations-003.mp3";
 		break;
 		case 4:
-			myAudio4.src="./vexations-004.mp3";
+			myAudio4.src="vexations-004.mp3";
 		break;
 		case 5:
-			myAudio4.src="./vexations-005.mp3";
+			myAudio4.src="vexations-005.mp3";
 		break;
 		case 6:
-			myAudio4.src="./vexations-006.mp3";
+			myAudio4.src="vexations-006.mp3";
 		break;
 		case 7:
-			myAudio4.src="./vexations-007.mp3";
+			myAudio4.src="vexations-007.mp3";
 		break;
 		case 8:
-			myAudio4.src="./vexations-008.mp3";
+			myAudio4.src="vexations-008.mp3";
 		break;
 		case 9:
 			myAudio2.src="";
 		break;
 		}
-			myAudio2.play();
-			myAudio3.play();
-			myAudio4.play();
+		myAudio2.play();
+		myAudio3.play();
+		myAudio4.play();
 		
 		numRepeats = numRepeats + 1;
 		}
@@ -297,10 +260,6 @@ if (myAudio.ended)
 		  <input type="button" value="About this app" onClick="updateAbout()" />
           </div>
 		</div>
-     </div>
-    </div>
-    <!-- #main -->
-    <!-- container -->
     <div id="footer-bar">
       <div class="container">
         <div class="sixteen columns">
@@ -314,7 +273,5 @@ if (myAudio.ended)
         <!-- #colophon -->
       </div>
     </div>
-	</div>
-    <!-- #page -->
   </body>
 </html>
