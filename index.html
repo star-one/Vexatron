@@ -4,8 +4,6 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>The Vexatron</title>
-    <!-- CSS
-         ================================================== -->
     <link rel="stylesheet" href="css/style.css" />
 	<link rel="prefetch prerender" href="vexations.mp3" >
 	<link rel="prefetch prerender" href="vexations-001.mp3" >
@@ -16,44 +14,45 @@
 	<link rel="prefetch prerender" href="vexations-006.mp3" >
 	<link rel="prefetch prerender" href="vexations-007.mp3" >
 	<link rel="prefetch prerender" href="vexations-008.mp3" >
-    <!-- Mobile Specific Metas
-  ================================================== -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-	 <script src="./js/general.js"></script>
-	 <script src="./js/about.js"></script>
   </head>
-  <body style="margin: 2em;">
-<button onclick="playAud()" type="button">Play</button>
-<button onclick="rptAud()" type="button">Force repeat</button> 
-<button onclick="stopAud()" type="button">Stop</button> 
-<br> 
+  <body>
+	<div id="transport">
+		<img class="button" alt="Play" src="images/play.png" onclick="playAud()" />
+		<img class="button" alt="Stop" src="images/stop.png" onclick="stopAud()" />
+	</div>
+	<div id="progress">
+		<progress id="progressBar" value="0" max="100" style="width:100%;"></progress>
+		Cycle: <strong><span id="repeats">0</span></strong> 
+		/ Elapsed time: <strong><span id="elapsedTime">00:00:00</span></strong> 
+		/ <span id="elapsedPercent">0</span>%
+	</div>
+	<div id="cycles">
+Total number of cycles: <span id="theTotalRepeats">5</span> / total time: <span id="theTotalTime">0:8:45</span> minutes.
+<input type="range" name="totalRepeats" value=5 min=1 max=840 step=1 style="width:100%;" onChange="changeRepeats(this.value)">
+	</div>
 <audio id="audio1">
   <source src="vexations.mp3" type="audio/mp3">
   Your browser does not support HTML5 audio.
 </audio>
 <audio id="audio2">
-  <source src="vexations-008.mp3" type="audio/mp3">
-  Your browser does not support HTML5 audio.
+  <source src="" type="audio/mp3">
 </audio>
 <audio id="audio3">
-  <source src="vexations-005.mp3" type="audio/mp3">
-  Your browser does not support HTML5 audio.
+  <source src="" type="audio/mp3">
 </audio>
 <audio id="audio4">
-  <source src="vexations-002.mp3" type="audio/mp3">
-  Your browser does not support HTML5 audio.
+  <source src="" type="audio/mp3">
 </audio>
-<span style="background: #fff;">Total number of repeats: <span id="theTotalRepeats">5</span> / total time: <span id="theTotalTime">0:8:45</span> minutes.</span>
-<input type="range" name="totalRepeats" value=5 min=1 max=840 step=1 style="width:100%;" onChange="changeRepeats(this.value)">
 
 <script> 
-var myAudio=document.getElementById("audio1"); 
-var myAudio2=document.getElementById("audio2"); 
-var myAudio3=document.getElementById("audio3"); 
-var myAudio4=document.getElementById("audio4"); 
+myAudio=document.getElementById("audio1"); 
+myAudio2=document.getElementById("audio2"); 
+myAudio3=document.getElementById("audio3"); 
+myAudio4=document.getElementById("audio4"); 
 
 totalRepeats = 5;
-totalTime = 5;
+totalTime = totalRepeats * 105;
 
 function playAud()
   {   
@@ -62,22 +61,14 @@ function playAud()
 
   myAudio.play(); 
 
-  var startTime = new Date();
-  var showStarttime = startTime.toLocaleTimeString();
+  startTime = new Date();
+  showStarttime = startTime.toLocaleTimeString();
   startMilliseconds = startTime.getTime();
 
-  document.getElementById("startTime").innerHTML=showStarttime;
   document.getElementById("elapsedTime").innerHTML=formatTime(elapsedTime);
   document.getElementById("repeats").innerHTML=numRepeats;
+  bar = document.getElementById('progressBar');
  } 
-
-function rptAud()
-  { 
-  myAudio.currentTime = 100; 
-  myAudio2.currentTime = 100;
-  myAudio3.currentTime = 100;
-  myAudio4.currentTime = 100;
-  } 
 
 function stopAud()
   { 
@@ -91,6 +82,7 @@ function stopAud()
   myAudio4.currentTime = 0;
   
   clearInterval(myVar);
+  document.getElementById("elapsedTime").innerHTML="00:00";
   } 
 
 function formatTime(totalTime) {
@@ -110,23 +102,22 @@ function changeRepeats(newPosition)
   document.getElementById("theTotalTime").innerHTML=formatTime(totalTime);
  } 
 
-var myVar=setInterval(function(){myTimer()},100);
+myVar=setInterval(function(){myTimer()},100);
 
 function myTimer()
 {
-var d = new Date();
-var t = d.toLocaleTimeString();
-document.getElementById("currentTime").innerHTML=t;
-
-Position = myAudio.currentTime.toFixed(0);
-document.getElementById("position").innerHTML=formatTime(Position);
+d = new Date();
+t = d.toLocaleTimeString();
 
 document.getElementById("repeats").innerHTML=numRepeats;
 
 elapsedMilliseconds = d.getTime();
 elapsedTime = (elapsedMilliseconds - startMilliseconds)/1000;
 document.getElementById("elapsedTime").innerHTML=formatTime(elapsedTime);
-
+elapsedPercent = (elapsedTime / totalTime) * 100;
+elapsedPercent = elapsedPercent.toFixed(2);
+document.getElementById("elapsedPercent").innerHTML=elapsedPercent;
+bar.value = elapsedPercent;
 
 if (myAudio.ended)
 	{
@@ -139,28 +130,28 @@ if (myAudio.ended)
 		switch (myAudioSrcNum)
 		{
 		case 1:
-			myAudio.src="vexations-001.mp3";
+			myAudio2.src="vexations-001.mp3";
 		break;
 		case 2:
-			myAudio.src="vexations-002.mp3";
+			myAudio2.src="vexations-002.mp3";
 		break;
 		case 3:
-			myAudio.src="vexations-003.mp3";
+			myAudio2.src="vexations-003.mp3";
 		break;
 		case 4:
-			myAudio.src="vexations-004.mp3";
+			myAudio2.src="vexations-004.mp3";
 		break;
 		case 5:
-			myAudio.src="vexations-005.mp3";
+			myAudio2.src="vexations-005.mp3";
 		break;
 		case 6:
-			myAudio.src="vexations-006.mp3";
+			myAudio2.src="vexations-006.mp3";
 		break;
 		case 7:
-			myAudio.src="vexations-007.mp3";
+			myAudio2.src="vexations-007.mp3";
 		break;
 		case 8:
-			myAudio.src="vexations-008.mp3";
+			myAudio2.src="vexations-008.mp3";
 		break;
 		case 9:
 			myAudio2.src="";
@@ -195,7 +186,7 @@ if (myAudio.ended)
 			myAudio3.src="vexations-008.mp3";
 		break;
 		case 9:
-			myAudio2.src="";
+			myAudio3.src="";
 		break;
 		}
 		
@@ -227,7 +218,7 @@ if (myAudio.ended)
 			myAudio4.src="vexations-008.mp3";
 		break;
 		case 9:
-			myAudio2.src="";
+			myAudio3.src="";
 		break;
 		}
 		myAudio2.play();
@@ -236,42 +227,20 @@ if (myAudio.ended)
 		
 		numRepeats = numRepeats + 1;
 		}
+		else
+		{
+		  	clearInterval(myVar);
+  			document.getElementById("elapsedTime").innerHTML="00:00";
+  			document.getElementById("elapsedTime").innerHTML=totalTime;
+			document.getElementById("elapsedPercent").innerHTML="100";
+		}
 	}
 }
-</script> 
-		<div>
-	    Position: <strong><span id="position"></span></strong><br />
-		</div>
-	    <div>
-		Repeat: <strong><span id="repeats"></span></strong><br />
-	    </div>
-	    <div>
-		Current time: <strong><span id="currentTime"></span></strong><br />
-	    </div>
-	    <div>
-		Start time: <strong><span id="startTime"></span></strong><br />
-	    </div>
-	    <div>
-		Elapsed time: <strong><span id="elapsedTime"></strong></span>
-	    </div>
-		<div id="buttons">
-		  <hr />
-		  <div>
-		  <input type="button" value="About this app" onClick="updateAbout()" />
-          </div>
-		</div>
-    <div id="footer-bar">
-      <div class="container">
-        <div class="sixteen columns">
-          <footer id="colophon" role="contentinfo">
-            <div id="footer">
+</script>
+
+            <div id="directions">
               <p>In order to play the theme 840 times in succession, it would be advisable to prepare oneself beforehand, and in the deepest silence, by serious immobilities.</p>
 			  <p><em>Pour se jouer 840 fois de suite ce motif, il sera bon de se preparer au prealable, et dans le plus grand silence, par des immobilites serieuses.</em></p>
             </div>
-          </footer>
-        </div>
-        <!-- #colophon -->
-      </div>
-    </div>
   </body>
 </html>
